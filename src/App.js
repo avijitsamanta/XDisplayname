@@ -1,40 +1,60 @@
 import React,{useState} from "react";
 function App() {
-  const [firstName,setFirstName] = useState("")
-  const [lastName,setLastName] = useState("")
-  const [fullName,setFullName] = useState("")
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
 
-  function handleSubmit(e){
-    e.preventDefault();
-    if(firstName && lastName){
-      setFullName(firstName+" "+lastName)
-    }else{
-      setFullName("")
-    }
-    
-  }
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const newFullName = `${firstName} ${lastName}`;
+    setFullName(newFullName);
+  };
+
+
   return (
     <div>
       <h1>Full Name Display</h1>
-      <form onSubmit={handleSubmit}>
-        <p>
-          <div>
-            First Name: <input type="text" name="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
-          </div>
-          <div>
-            Last Name: <input type="text" name="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
-          </div>
-        </p>
-        <button type="submit">Submit</button>
+      <form onSubmit={handleFormSubmit}>
+        <div>
+          <label>
+            First Name:
+            <input
+              type="text"
+              value={firstName}
+              onChange={handleFirstNameChange}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Last Name:
+            <input
+              type="text"
+              value={lastName}
+              onChange={handleLastNameChange}
+            />
+          </label>
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
       </form>
-      <p>
-        {
-          fullName!="" ? `Full Name: ${fullName}`:""
-        }
-        
-      </p>
+
+      {fullName && (
+        <div>
+          <p>Full Name: {fullName}</p>
+        </div>
+      )}
     </div>
-  );
+  )
 }
 
 export default App;
