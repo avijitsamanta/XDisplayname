@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React,{useState} from "react";
 function App() {
+  const [firstName,setFirstName] = useState("")
+  const [lastName,setLastName] = useState("")
+  const [showFullName,setShowFullName] = useState("")
+
+  function handleSubmit(e){
+    e.preventDefault();
+    if(firstName && lastName){
+      setShowFullName(true);
+    }else{
+      setShowFullName(false);
+    }
+    
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <h1>Full Name Display</h1>
+      <form onSubmit={handleSubmit}>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <div>
+            First Name: <input type="text" name="firstname"  onChange={(e)=>setFirstName(e.target.value)} required/>
+          </div>
+          <div>
+            Last Name: <input type="text" name="lastname" onChange={(e)=>setLastName(e.target.value)} required/>
+          </div>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <button type="submit">Submit</button>
+      </form>
+      <p>
+        {
+          showFullName ? `Full Name: ${firstName} ${lastName}`:""
+        }
+        
+      </p>
     </div>
   );
 }
