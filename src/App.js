@@ -2,14 +2,14 @@ import React,{useState} from "react";
 function App() {
   const [firstName,setFirstName] = useState("")
   const [lastName,setLastName] = useState("")
-  const [showFullName,setShowFullName] = useState("")
+  const [fullName,setFullName] = useState("")
 
   function handleSubmit(e){
     e.preventDefault();
     if(firstName && lastName){
-      setShowFullName(true);
+      setFullName(firstName+" "+lastName)
     }else{
-      setShowFullName(false);
+      setFullName("")
     }
     
   }
@@ -19,17 +19,17 @@ function App() {
       <form onSubmit={handleSubmit}>
         <p>
           <div>
-            First Name: <input type="text" name="firstname"  onChange={(e)=>setFirstName(e.target.value)} required/>
+            First Name: <input type="text" name="firstname" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
           </div>
           <div>
-            Last Name: <input type="text" name="lastname" onChange={(e)=>setLastName(e.target.value)} required/>
+            Last Name: <input type="text" name="lastname" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
           </div>
         </p>
         <button type="submit">Submit</button>
       </form>
       <p>
         {
-          showFullName ? `Full Name: ${firstName} ${lastName}`:""
+          fullName!="" ? `Full Name: ${fullName}`:""
         }
         
       </p>
