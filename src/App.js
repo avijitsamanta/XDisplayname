@@ -14,7 +14,11 @@ function App() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const newFullName = `${firstName} ${lastName}`;
+    let newFullName = ""
+    if(firstName && lastName){
+      newFullName = `${firstName} ${lastName}`;
+    }
+    
     setFullName(newFullName);
   };
 
